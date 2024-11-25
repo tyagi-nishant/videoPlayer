@@ -93,7 +93,6 @@ function playVideo(videoId) {
   if (thumbnail) {
     thumbnail.replaceWith(iframe); // Replace image with iframe
   }
-  
 }
 
 
