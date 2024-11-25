@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Search and Play</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+  <div class="container">
+    <header>
+      <h1>YouTube Video Search</h1>
+      <button id="darkModeToggle" onclick="toggleDarkMode()">Light Mode</button>
+    </header>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search for videos">
+      <button onclick="searchVideos()">Search</button>
+    </div>
+    <div id="resultsScrollContainer">
+      <div id="resultsContainer"></div>
+    </div>
+    <div id="playerContainer">
+      <iframe id="videoPlayer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
