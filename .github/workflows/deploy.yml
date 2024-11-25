@@ -28,12 +28,10 @@ jobs:
             echo "Secret fetched successfully."
           fi
           
-      - name: Create config file
+      - name: Create and force add config file
         run: |
           echo "const config = { YOUTUBE_API_KEY: '${{ secrets.YOUTUBE_API_KEY }}' };" > config.js
-          echo "Config file created:"
-          cat config.js
-          git add config.js
+          git add -f config.js
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
