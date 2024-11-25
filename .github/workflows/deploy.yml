@@ -33,6 +33,7 @@ jobs:
           echo "const config = { YOUTUBE_API_KEY: '${{ secrets.YOUTUBE_API_KEY }}' };" > config.js
           echo "Config file created:"
           cat config.js
+          git add config.js
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
