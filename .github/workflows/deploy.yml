@@ -8,20 +8,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Debug Information
+        run: |
+          echo "GitHub workspace: $GITHUB_WORKSPACE"
+          echo "Current directory contents:"
+          ls -la
+          echo "Git status:"
+          git status
+
+      - name: Debug Secret
+        run: |
+          if [ -z "${{ secrets.YOUTUBE_API_KEY }}" ]; then
+            echo "Secret is empty or not accessible."
+            exit 1
+          else
+            echo "Secret fetched successfully."
+          fi
+          
       - name: Create config file
         run: |
           echo "const config = { YOUTUBE_API_KEY: '${{ secrets.YOUTUBE_API_KEY }}' };" > config.js
+          echo "Config file created:"
+          cat config.js
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: .
-          - name: Debug Secret
-          run: |
-            if [ -z "${{ secrets.YOUTUBE_API_KEY }}" ]; then
-              echo "Secret is empty or not accessible."
-              exit 1
-            else
-              echo "Secret fetched successfully."
-            fi
-        
