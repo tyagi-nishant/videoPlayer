@@ -42,7 +42,7 @@ function displayResults(videos) {
     // Create result card
     const resultDiv = document.createElement("div");
     resultDiv.className = "result";
-    resultDiv.onclick = () => playVideo(videoId);
+    resultDiv.onclick = (event) => playVideo(videoId);
 
     // Thumbnail
     const thumbnailDiv = document.createElement("div");
@@ -78,9 +78,23 @@ function displayResults(videos) {
 
 // Function to play video
 function playVideo(videoId) {
-  const player = document.getElementById("videoPlayer");
-  player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  // Create iframe for video
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  iframe.frameBorder = "0";
+  iframe.allow = "autoplay; encrypted-media";
+  iframe.allowFullscreen = true;
+  iframe.style.width = "100%";
+  iframe.style.height = "300px";
+
+  // Find the clicked card's thumbnail and replace it with the iframe
+  const resultCard = event.currentTarget; // Event's target card
+  const thumbnail = resultCard.querySelector(".thumbnail img");
+  if (thumbnail) {
+    thumbnail.replaceWith(iframe); // Replace image with iframe
+  }
 }
+
 
 // Function to toggle Dark Mode
 function toggleDarkMode() {
