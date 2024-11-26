@@ -95,6 +95,48 @@ function playVideo(videoId) {
   }
 }
 
+// Voice Search Implementation
+const voiceSearchBtn = document.getElementById('voiceSearchBtn');
+const searchInput = document.getElementById('searchInput');
+
+// Check if browser supports speech recognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+
+    voiceSearchBtn.addEventListener('click', () => {
+        if (voiceSearchBtn.classList.contains('listening')) {
+            recognition.stop();
+        } else {
+            recognition.start();
+            voiceSearchBtn.classList.add('listening');
+        }
+    });
+
+    recognition.onresult = (event) => {
+        const voiceResult = event.results[0][0].transcript;
+        searchInput.value = voiceResult;
+        voiceSearchBtn.classList.remove('listening');
+        // Trigger search automatically after voice input
+        // document.getElementById('searchBtn').click();
+        searchVideos();
+    };
+
+    recognition.onend = () => {
+        voiceSearchBtn.classList.remove('listening');
+    };
+
+    recognition.onerror = (event) => {
+        console.error('Voice Recognition Error:', event.error);
+        voiceSearchBtn.classList.remove('listening');
+    };
+} else {
+    voiceSearchBtn.style.display = 'none';
+    console.log('Speech Recognition not supported');
+}
 
 // Function to toggle Dark Mode
 function toggleDarkMode() {
